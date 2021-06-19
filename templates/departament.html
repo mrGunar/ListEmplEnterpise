@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Отделы</h2>
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<form action="" method="post">
+    <h3>Создать отдел</h3>
+    <input type="text" placeholder="Название отдела" name="title">
+    <p><select name="parent" id="">
+        <option value="0">Главный отдел</option>
+        {% for dep in departments %}
+        <option value="{{dep.id}}">{{dep.title}}</option>
+        {% endfor %}
+
+    </select></p>
+    <input type="submit" value="Создать">
+</form>
+
+<h3>Существующие отделы</h3>
+{% for dep in departments %}
+    <p>{{dep.title}}</p>
+{% endfor %}
+{% endblock content %}

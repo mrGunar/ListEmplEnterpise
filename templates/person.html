@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+<div class="person-main">
+
+    <section>
+        <h2>Пользователи</h2>
+        <form action="" method="post">
+            <input type="text" placeholder="Введите имя" name="username">
+
+            <p><select id="department" placeholder="Отдел" name="department">
+                <option value="0">Нет отдела</option>
+                {% for dep in departments %}
+                    <option value="{{dep.id}}">{{dep.title}}</option>
+                {% endfor %}
+            </select></p>
+
+            <p><select name="position" id="position">
+                {% for pos in positions %}
+                <option value="{{pos.id}}">{{pos.title}}</option>
+                {% endfor %}
+            </select></p>
+            <input type="submit" value='Добавить'>
+        </form>
+    </section>
+    <hr>
+
+</div>
+
+{% endblock content %}

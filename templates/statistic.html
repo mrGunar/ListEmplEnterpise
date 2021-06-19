@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Статикстика</h2>
+<form action="" method="post">
+    <h4>Выберите отдел</h4>
+    <p><select name="departments" id="departments">
+        {% for dep in departments %}
+        <option value="{{dep.id}}">{{dep.title}}</option>
+        {% endfor %}
+    </select></p>
+    <input type="submit" value="Выбрать">
+</form>
+
+<secction>
+    {% if not data %}
+        <h3>Не выбрано ничего!</h3>
+    {% else %}
+        {% for el,key in data.items() %}
+            {{el}}<br>
+            {% if not key%}
+                <p>Нет сотрудников</p>
+            {% else%}
+            {% for k in key %}
+                <a href="{{url_for('change_user', username=k)}}">{{k}}</a>
+            {% endfor %}
+            {% endif %}
+    <hr>
+        {% endfor %}
+    {% endif %}
+</secction>
+{% endblock content %}

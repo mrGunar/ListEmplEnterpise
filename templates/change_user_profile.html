@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Страница изменения профиля сотрудника {{username}}</h2>
+<p>Текущая должность - {{position}}</p>
+<p>Текущий отдел - {{department}}</p>
+<form action="" method="post">
+  <input type="text" name="user" value="{{username}}">
+  <p><select name="change-pos" id="change-pos">
+    <option value="0">Нет позиции</option>
+    {% for pos in positions %}
+      {% if pos.title == position %}
+    <option value="{{pos.id}}" selected>{{pos.title}}</option>
+    {% else %}
+    <option value="{{pos.id}}">{{pos.title}}</option>
+      {% endif %}
+    {% endfor %}
+  </select></p>
+
+  <p><select name="change-dep" id="change-dep">
+    <option value="0">Нет отдела</option>
+    {% for dep in departments %}
+        {% if dep.title == department %}
+    <option value="{{dep.id}}" selected>{{dep.title}}</option>
+    {% else %}
+    <option value="{{dep.id}}">{{dep.title}}</option>
+      {% endif %}
+    {% endfor %}
+  </select></p>
+
+    <input type="submit" value="Сохранить изменения">
+</form>
+<a href="{{url_for('delete_user', username=username)}}">Удалить сотрудника!</a>
+
+
+{% endblock content %}

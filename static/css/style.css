@@ -1,0 +1,122 @@
+body {
+    /*background: url("/static/img/index.jpg") center no-repeat fixed;*/
+    /*background-size: 100%;*/
+}
+
+/*Стили меню*/
+
+menu ul {
+    display: flex;
+    justify-content:center;
+}
+
+menu ul li {
+    list-style-type: none;
+    margin-top: 15px;
+    margin-right: 20px;
+    width: 250px;
+}
+
+menu ul li a {
+    text-decoration: none;
+    font-size: 30px;
+}
+
+menu ul li a:hover {
+    text-decoration: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+/*Сотруднкии*/
+
+.person-main {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/*таблица*/
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
+}
+
+thead th:nth-child(1) {
+  width: 30%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+th, td {
+  padding: 20px;
+}
+
+th {
+  letter-spacing: 2px;
+}
+
+td {
+  letter-spacing: 1px;
+}
+
+
+th {
+  letter-spacing: 2px;
+}
+
+td {
+  letter-spacing: 1px;
+}
+
+tbody td {
+  text-align: center;
+}
+
+tfoot th {
+  text-align: right;
+}
+
+
+/*формы*/
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+select {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+.flash {
+    padding:10px;
+}
+
+.flash.success {
+    border: 1px solid black;
+    background: seagreen;
+}
+
+.flash.error {
+    border: 1px solid black;
+    background: firebrick;
+}

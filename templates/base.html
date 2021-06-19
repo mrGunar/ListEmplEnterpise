@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+{% if session['username'] %}
+<h1>Привет, {{session['username']}}</h1>
+{% else %}
+<h1>Неавторизованный пользователь! {{session['username']}}</h1>
+{% endif %}
+<menu>
+    <ul>
+        <li><a href="{{url_for('index')}}">Главная</a></li>
+        <li><a href="{{url_for('departament')}}">Отделы</a></li>
+        <li><a href="{{url_for('person')}}">Пользователи</a></li>
+        <li><a href="{{url_for('setting')}}">Настройки</a></li>
+        <li><a href="{{url_for('statistic')}}">Статистика</a></li>
+        {% if not session['username'] %}
+        <li><a href="{{url_for('authorization')}}">Авторизация</a></li>
+        {% endif %}
+
+    </ul>
+</menu>
+
+{% block content %}
+{% endblock content %}
+
+</body>
+</html>
