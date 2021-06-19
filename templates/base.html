@@ -10,7 +10,7 @@
 {% if session['username'] %}
 <h1>Привет, {{session['username']}}</h1>
 {% else %}
-<h1>Неавторизованный пользователь! {{session['username']}}</h1>
+<h1>Неавторизованный пользователь!</h1>
 {% endif %}
 <menu>
     <ul>
@@ -22,6 +22,9 @@
         {% if not session['username'] %}
         <li><a href="{{url_for('authorization')}}">Авторизация</a></li>
         {% endif %}
+        {%if session['username'] %}
+        <li><a href="{{url_for('logout')}}">Выход</a></li>
+        {% endif%}
 
     </ul>
 </menu>

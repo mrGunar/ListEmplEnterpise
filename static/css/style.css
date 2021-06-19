@@ -120,3 +120,7 @@ select {
     border: 1px solid black;
     background: firebrick;
 }
+.flash.warning {
+    border: 1px solid black;
+    background: darkorange;
+}

@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, g, redirect, url_for, session
 from FDataBase import FDataBase
 
 DATABASE = 'dbase.db'
-SECRET_KEY = '325gijsd8gdwsgiwfied234fj094fwje412if82334g8fi3wjgfewr98fg0dwgvdvhjsdvk'
+SECRET_KEY = '325gid8gdwsgiwfied234fj094fwje412if82334g8fi3wjgfewr98fg0dwgvdvhjsdvk'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -55,6 +55,8 @@ def index():
 
 @app.route("/departament", methods=['GET', 'POST'])
 def departament():
+    if not session.get('username', None):
+        return redirect(url_for('authorization'))
     context = {
         'departments': dbase.getDepartments(),
     }
@@ -74,6 +76,8 @@ def departament():
 
 @app.route("/person", methods=['GET', 'POST'])
 def person():
+    if not session.get('username', None):
+        return redirect(url_for('authorization'))
     context = {
         'positions': dbase.getPosition(),
         'persons': dbase.getPersons(),
@@ -98,6 +102,8 @@ def person():
 
 @app.route("/statistic", methods=['GET', 'POST'])
 def statistic():
+    if not session.get('username', None):
+        return redirect(url_for('authorization'))
     arr = []  # список из выбранного отдела и его дочерних отделов
     data = {}  # словарь ключ - название отдела, значение - список сотрудников
 
@@ -130,6 +136,8 @@ def statistic():
 
 @app.route("/setting")
 def setting():
+    if not session.get('username', None):
+        return redirect(url_for('authorization'))
     arr = {}
     for person in dbase.getPersons():
         pos_title = dbase.getPersonPosition(person['position_id'])[0]['title']
@@ -151,6 +159,8 @@ def setting():
 
 @app.route("/setting/<username>", methods=["GET", "POST"])
 def change_user(username):
+    if not session.get('username', None):
+        return redirect(url_for('authorization'))
     current_user = dbase.getPerson(username)
     current_pos = current_user['position_id']
     current_dep = current_user['department_id']
@@ -181,6 +191,8 @@ def change_user(username):
 
 @app.route("/setting/<username>/delete", methods=["GET", "POST"])
 def delete_user(username):
+    if not session.get('username', None):
+        return redirect(url_for('authorization'))
     context = {
         'user': username,
     }
@@ -197,6 +209,16 @@ def authorization():
         pas = request.form['password']
         if pas == '12345':
             session['username'] = name
+            return redirect(url_for('index'))
+        else:
+            flash('Неверный пароль', category='error')
+    return render_template('authorization.html')
+
+
+@app.route('/logout')
+def logout():
+    if session.get('username', None):
+        session['username'] = []
     return render_template('authorization.html')
 
 
