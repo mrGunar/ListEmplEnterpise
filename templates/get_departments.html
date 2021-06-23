@@ -1,0 +1,6 @@
+<p><select name="parent" id="departments">
+    <option value="0">Главный отдел</option>
+    {% for dep in deps %}
+    <option value="{{dep.id}}">{{dep.title}}</option>
+    {% endfor %}
+</select></p>

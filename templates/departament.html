@@ -5,17 +5,17 @@
 {% for cat, msg in get_flashed_messages(True) %}
 <div class="flash {{cat}}">{{msg}}</div>
 {% endfor %}
-<form action="" method="post">
+<form action="" method="post" id="dep-form">
     <h3>Создать отдел</h3>
-    <input type="text" placeholder="Название отдела" name="title">
-    <p><select name="parent" id="">
+    <input type="text" placeholder="Название отдела" name="dep-form-title" id="dep-form-title">
+    <p><select name="parent" id="departments">
         <option value="0">Главный отдел</option>
         {% for dep in departments %}
-        <option value="{{dep.id}}">{{dep.title}}</option>
+        <option value="{{dep.id}}" id="dep-form-par-id">{{dep.title}}</option>
         {% endfor %}
 
     </select></p>
-    <input type="submit" value="Создать">
+    <input type="submit" value="Создать" id="cdep">
 </form>
 
 <h3>Существующие отделы</h3>

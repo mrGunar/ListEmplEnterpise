@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-from flask import Flask, render_template, request, g, redirect, url_for, session, flash
+from flask import Flask, render_template, request, g, redirect, url_for, session, flash, jsonify
 from FDataBase import FDataBase
 
 DATABASE = 'dbase.db'
@@ -63,15 +63,17 @@ def departament():
     if request.method == 'GET':
         return render_template('departament.html', **context)
     else:
-        form_name = request.form['title']
-        form_parent = request.form['parent']
-        if form_name:
-            dbase.addDepartment(form_name, form_parent)
-            flash('Отдел добавлен', category='success')
+
             return render_template('departament.html', **context)
-        else:
-            flash('Ошибка при добавлении', category='error')
-            return render_template('departament.html', **context)
+
+
+@app.route('/get_departments', methods=["POST"])
+def get_departments():
+    print('gugugugus')
+    form_name = request.form['title']
+    form_parent = request.form['parent_id']
+    dbase.addDepartment(form_name, form_parent)
+    return jsonify({'data': render_template('get_departments.html', deps=dbase.getDepartments())})
 
 
 @app.route("/person", methods=['GET', 'POST'])
@@ -136,6 +138,7 @@ def statistic():
 
 @app.route("/setting")
 def setting():
+    print('gus')
     if not session.get('username', None):
         return redirect(url_for('authorization'))
     arr = {}
@@ -154,6 +157,7 @@ def setting():
         'persons': dbase.getPersons(),
         'arrs': arr,
     }
+
     return render_template('setting.html', **context)
 
 
