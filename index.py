@@ -156,6 +156,7 @@ def setting():
     context = {
         'persons': dbase.getPersons(),
         'arrs': arr,
+        'departments': dbase.getDepartments(),
     }
 
     return render_template('setting.html', **context)
@@ -191,6 +192,22 @@ def change_user(username):
         return redirect(url_for('change_user', username=form_name))
 
     return render_template('change_user_profile.html', **context)
+
+
+@app.route('/update/<department>/<dep_par_id>', methods=['GET', "POST"])
+def change_department(department, dep_par_id):
+    if request.method == "POST":
+        dep_id = dbase.getDepartmentId(department)['id']
+        form_title = request.form['dep-title']
+        form_par_id = request.form['parent_id']
+        dbase.updateDepartment(dep_id, form_title, form_par_id)
+        return redirect(url_for('change_department', department=form_title, dep_par_id=form_par_id))
+    context = {
+        'title': department,
+        'deps': dbase.getDepartments(),
+        'parent': dbase.getDepartment(dep_par_id)
+    }
+    return render_template('change_department.html', **context)
 
 
 @app.route("/setting/<username>/delete", methods=["GET", "POST"])

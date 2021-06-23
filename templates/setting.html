@@ -2,7 +2,9 @@
 
 {% block content %}
 <h2>Настройки</h2>
-{% if arrs %}
+<section style="display: flex; justify-content: center;">
+    <div style="width: 100%">
+        {% if arrs %}
 <table>
   <tr>
     <th>Имя</th>
@@ -22,5 +24,19 @@
 {% else %}
 <h2>Нет сотрудников</h2>
 {% endif %}
+    </div>
+
+     <div style="border: 1px solid black; margin-left: 10px;">
+          <h3>Отделы</h3>
+            {% for dep in departments %}
+                <a href="{{url_for('change_department', department=dep.title, dep_par_id=dep.parent)}}">{{dep.title}}</a><br>
+            {% endfor%}
+     </div>
+</section>
+
+
+<section>
+
+</section>
 
 {% endblock content %}

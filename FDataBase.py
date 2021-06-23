@@ -63,7 +63,7 @@ class FDataBase:
         return []
 
     def getDepartment(self, dep_id: int) -> List:
-        """Получить название отделов по id_par отдела"""
+        """Получить название отдела по id_par отдела"""
         try:
             self.__cursor.execute(f"SELECT * FROM depart WHERE id = {dep_id}")
             res = self.__cursor.fetchone()
@@ -112,6 +112,16 @@ class FDataBase:
         except:
             print("ОШибка")
 
+    def getDepartmentId(self, dep_title: str) -> str:
+        """Получить id отдела по имени"""
+        try:
+            self.__cursor.execute(f"SELECT * FROM depart WHERE depart.title = '{dep_title}'")
+            res = self.__cursor.fetchone()
+            if res:
+                return res
+        except:
+            print("ОШибка")
+
     def updatePerson(self, pk: int, username: str, pos: int, dep: int) -> None:
         """Метод обновения данных сотрудника"""
         try:
@@ -138,3 +148,12 @@ class FDataBase:
         except:
             print('Ошибка')
         return []
+
+    def updateDepartment(self, pk: int, dep_title: str, par_id: int) -> None:
+        """Метод обновения данных отдела"""
+        try:
+            sql = f"UPDATE depart SET title = '{dep_title}', parent = {par_id} WHERE id = {pk}"
+            self.__cursor.execute(sql)
+            self.__db.commit()
+        except:
+            print("Ошибка!")

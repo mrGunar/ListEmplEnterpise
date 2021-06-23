@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Страница изменения отдела</h2>
+<form action="" method="post">
+  <input type="text" placeholder="отдел" value="{{title}}" name="dep-title">
+  <p>Подчиняется: <select name="parent_id" id="">
+    <option value="0">Главный отдел</option>
+    {% for dep in deps %}
+    {% if dep.title == parent.title %}
+    <option value="{{dep.id}}" selected>{{dep.title}}</option>
+    {% else %}
+      <option value="{{dep.id}}" name="parent_id">{{dep.title}}</option>
+    {% endif %}
+    {% endfor %}
+  </select></p>
+  <input type="submit" value="Сохранить">
+</form>
+
+{% endblock content %}
